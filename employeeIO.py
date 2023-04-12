@@ -20,16 +20,12 @@ def closeEmployeeFile(csvFile):
     csvFile.close()
 
 # Read csv file as dictionary
-
-
 def readEmployeesFile():
     file = openEmployeeFile()
     employees = [line for line in csv.DictReader(file)]
     return employees
 
 # Write new employee to csv file
-
-
 def writeNewEmployee(employee):
     file = openEmployeeFile()
     fieldnames = ['firstname', 'lastname',
@@ -37,6 +33,3 @@ def writeNewEmployee(employee):
     write = csv.DictWriter(file, fieldnames=fieldnames)
     write.writerow(employee.toDict)
     closeEmployeeFile(file)
-
-
-readEmployeesFile()
