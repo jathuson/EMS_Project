@@ -19,11 +19,11 @@ class Employee:
 
     def toDict(self) -> dict:
         return {"firstname": self.firstname,
-                "lastname": self.firstname,
-                "startDate": self.firstname,
-                "salary": self.firstname,
-                "department": self.firstname,
-                "empId": self.firstname}
+                "lastname": self.lastname,
+                "startDate": self.startDate,
+                "salary": self.salary,
+                "department": self.department,
+                "empId": self.empId}
 
     @property
     def firstname(self) -> str:
