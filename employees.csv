@@ -1,3 +1,2 @@
-first_name, last_name, employee_id, DOE, salary, department
-pablo, castro, 123, 1/23/2023, 50000, IT
-peter, pan, 321, 4/21/2018, 73000, HR
+firstName,lastName,startDate,salary,department,empId
+Nikki,kelly,2023-04-12,45000,QA,1

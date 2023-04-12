@@ -18,6 +18,8 @@ def getPhone() -> str:
         except InvalidOption:
             print(f"Error: {phone} is not in the correct format")
 
+class InvalidOption(Exception): pass
+
 def getName() -> tuple:
     while True:  # While loop repeats until valid input is accepted
         try:
