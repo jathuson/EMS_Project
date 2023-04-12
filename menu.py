@@ -16,7 +16,7 @@ def add_employee():
     print("Employee added successfully!")
 
 def remove_employee():
-    id = input("Enter employee id to remove: ")
+    id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
     employees = readEmployeesCSV()
     for employee in employees:
         if employee.empId == id:
@@ -41,12 +41,12 @@ def update_employee():
 
     print("Employee with id", id, "not found.")
 
-def list_employees():
-    id=input('Enter the employee ID you wish to find: ')
+def list_employees(id):
+    employees=readEmployeesCSV()
     for employee in employees:
-        if employee.id == id:
+        if employee.Empid == id:
             print("Name:", employee.name, 
-                "\nID:", employee.id, 
+                "\nID:", employee.Empid, 
                 "\nDate of Employment:", employee.date_of_employment, 
                 "\nSalary:", employee.salary, 
                 "\nDepartment:", employee.department)
@@ -70,7 +70,8 @@ while True:
     elif choice == '3':
         update_employee()
     elif choice == '4':
-        list_employees()
+        id = acceptInt("Enter employee id: ", low=0, high=8_000_000_000)
+        list_employees(id)
     elif choice == '5':
         print("Goodbye!")
         break
