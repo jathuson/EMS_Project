@@ -1,24 +1,64 @@
 import unittest
 
 from employeeIO import readEmployeesFile, writeNewEmployee, updateEmployee
+import employee
+import csv
+from datetime import date
 
 
 class TestReadEmployeesFile(unittest.TestCase):
     def test_fields(self):
         employees = readEmployeesFile()
         employee = employees.popitem()
-        required_fields = ['firstName', 'lastName', 'startDate', 'salary', 'department', 'empID']
+        required_fields = ['firstName', 'lastName', 'startDate', 'salary', 'department', 'empId']
         self.assertEqual(list(employee[1].keys()), required_fields)
 
 
 class TestWriteNewEmployee(unittest.TestCase):
     def test_fields(self):
-        pass
+        newEmployee = employee.Employee("Test", "Case", date.today(), 0, "WA", 0)
+        csvFile = open("employees.csv", "w")
+        fieldnames = ['firstName', 'lastName',
+                      'startDate', 'salary', 'department', 'empId']
+        write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+        write.writeheader()
+        csvFile.close()
+
+        writeNewEmployee(newEmployee)
+        employees = readEmployeesFile()
+        
+        employeee = employees.popitem()
+        requied_fields = ["Test", "Case", str(date.today()), str(0), "WA", str(1)]
+        self.assertEqual(list(employeee[1].values()), requied_fields)
+
 
 
 class TestUpdateEmployee(unittest.TestCase):
     def test_fields(self):
-        pass
+        newEmployee = employee.Employee("Test", "Case", date.today(), 1123, "WA", 0)
+        csvFile = open("employees.csv", "w")
+        fieldnames = ['firstName', 'lastName',
+                      'startDate', 'salary', 'department', 'empId']
+        write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+        write.writeheader()
+        csvFile.close()
+
+        writeNewEmployee(newEmployee)
+        newEmployee._empId = 1
+        writeNewEmployee(newEmployee)
+        newEmployee._empId = 2
+        writeNewEmployee(newEmployee)
+
+
+        
+
+        updatedEmployee = employee.Employee("Test", "Case", date.today(), 1000, "WA", 0)
+        updateEmployee(updatedEmployee)
+        employees = readEmployeesFile()
+        
+        employeee = employees.popitem()
+        requied_fields = ["Test", "Case", str(date.today()), str(1000), "WA", str(1)]
+        self.assertEqual(list(employeee[1].values()), requied_fields)
 
 
 if __name__ == '__main__':
