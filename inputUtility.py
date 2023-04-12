@@ -6,7 +6,9 @@ class OutOfRangeError(Exception):
 def getName() -> tuple:
     while True:  # While loop repeats until valid input is accepted
         try:
-            first, last = input("Please Enter your Name:\n").split(" ")  # Split on the space
+            nameLis = input("Please Enter your Name:\n").split(" ")  # Split on the space
+            first = " ".join([x for x in nameLis if x != nameLis[-1]])
+            last = nameLis[-1]
             if len(first) == 0:  # Ensure first name is not null
                 raise TypeError("First Name is Null")
             elif len(last) == 0:  # Ensure last name is not null
@@ -62,3 +64,4 @@ def getDate():
             print(e)
         except TypeError as e:
             print(e)
+
