@@ -31,8 +31,8 @@ class Employee:
         return f"{self.empId}: {self.firstname} {self.lastname}\n{self.department} ${self.salary} {self.startDate}"
 
     def toDict(self) -> dict:
-        return {"firstname": self.firstname,
-                "lastname": self.lastname,
+        return {"firstName": self.firstname,
+                "lastName": self.lastname,
                 "startDate": self.startDate,
                 "salary": self.salary,
                 "department": self.department,
