@@ -18,7 +18,7 @@ def openEmployeeFile():
         csvFile = open("employees.csv", "a")
     except:
         csvFile = open("employees.csv", "w")
-        fieldnames = ['first_name', 'last_name', 'DOE' , 'salary', 'department']
+        fieldnames = ['firstname', 'lastname', 'startDate', 'salary', 'department', 'empID']
         write = csv.DictWriter(csvFile, fieldnames=fieldnames)
         write.writeheader()
 
@@ -32,9 +32,9 @@ def closeEmployeeFile(csvFile):
 def writeNewEmployee(employee):
 
     file = openEmployeeFile()
-    fieldnames = ['first_name', 'last_name', 'DOE' , 'salary', 'department']
+    fieldnames = ['firstname', 'lastname', 'startDate', 'salary', 'department', 'empID']
     write = csv.DictWriter(file, fieldnames=fieldnames)
-    write.writerow({'first_name' : employee.first, 'last_name': employee.last, 'DOE' : employee.DOE , 'salary': employee.salary, 'department': employee.department})
+    write.writerow(employee.toDict)
     closeEmployeeFile(file)
 
 
