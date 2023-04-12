@@ -1,6 +1,4 @@
 import datetime
-import random
-
 
 class Employee:
     def __init__(self, firstname: str, lastname: str, startDate: datetime.date, salary: int, department: str, prevID: int):
@@ -17,7 +15,7 @@ class Employee:
         else: return False
 
     def __repr__(self):
-        return f"{self.empId}: {self.firstname} {self.lastname}\n{self.department}: {self.salary}: {self.startDate}"
+        return f"{self.empId}: {self.firstname} {self.lastname}\n{self.department} ${self.salary} {self.startDate}"
 
     def toDict(self) -> dict:
         return {"firstname": self.firstname,
@@ -68,7 +66,7 @@ class Employee:
         self._firstname = value
 
     @property
-    def empId(self) -> str:
+    def empId(self) -> int:
         return self._empId
 
     @empId.setter
