@@ -1,21 +1,25 @@
 # Imports from employee and department
+from employee import Employee
+from employeeWrite import writeNewEmployee
+from file_read import readEmployeesCSV
+from inputUtility import *
 
-employees = []
+departments = set()
 def add_employee():
-    firstname = input("Enter employee first name: ")
-    lastname = input("Enter employee last name: ")
-    id = input("Enter employee id: ")
-    date_of_employment = input("Enter employee date of employment: ")
-    salary = input("Enter employee salary: ")
-    department = input("Enter employee department: ")
-    employee = Employee(firstname, lastname, id, date_of_employment, salary, department) # calls on our employee class
-    employees.append(employee) # write here
+    firstname, lastname = getName()
+    date_of_employment = getDate()
+    salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
+    emp_id = acceptInt("Enter employee id: ", low=0, high=8_000_000_000)
+    department = acceptStr("Enter employee department: ", departments)
+    employee = Employee(firstname, lastname, date_of_employment, salary, department, emp_id) # calls on our employee class
+    writeNewEmployee(employee) # write here
     print("Employee added successfully!")
 
 def remove_employee():
-    id = input("Enter employee id to remove: ")
+    id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
+    employees = readEmployeesCSV()
     for employee in employees:
-        if employee.id == id:
+        if employee.empId == id:
             employees.remove(employee)
             print("Employee removed successfully!")
             return
@@ -25,22 +29,24 @@ def remove_employee():
 def update_employee():
     id = input("Enter employee id to update: ")
     # Choose what information you want to change?
-    employee_info = ['firstname', 'lastname', 'id', 'date_of_employment','salary', 'department']
+    fieldnames= ['firstname', 'lastname', 'id', 'date_of_employment','salary', 'department']
     #Go through each header in employee info and ask if they want to change this info or stay the same
-    for info in employee_info:
-        input_change= input(f'Do you want to change the {info}?(y/n)')
-        if input_change.lower()=='y':
-            for employee in employees:
-                if employee.id == id:
+    employees = readEmployeesCSV()
+    for employee in employees:
+        if employee.EmpId == id:
+            for info in fieldnames:
+            input_change= input(f'Do you want to change the {info}?(y/n)')
+            if input_change.lower()=='y':
                     #Use employee class to update the information
+
     print("Employee with id", id, "not found.")
 
-def list_employees():
-    id=input('Enter the employee ID you wish to find: ')
+def list_employees(id):
+    employees=readEmployeesCSV()
     for employee in employees:
-        if employee.id == id:
+        if employee.Empid == id:
             print("Name:", employee.name, 
-                "\nID:", employee.id, 
+                "\nID:", employee.Empid, 
                 "\nDate of Employment:", employee.date_of_employment, 
                 "\nSalary:", employee.salary, 
                 "\nDepartment:", employee.department)
@@ -64,7 +70,8 @@ while True:
     elif choice == '3':
         update_employee()
     elif choice == '4':
-        list_employees()
+        id = acceptInt("Enter employee id: ", low=0, high=8_000_000_000)
+        list_employees(id)
     elif choice == '5':
         print("Goodbye!")
         break
