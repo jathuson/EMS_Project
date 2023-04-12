@@ -3,6 +3,8 @@ import datetime
 class OutOfRangeError(Exception):
     pass
 
+class InvalidOption(Exception): pass
+
 def getName() -> tuple:
     while True:  # While loop repeats until valid input is accepted
         try:
