@@ -2,15 +2,16 @@
 from employee import Employee
 from employeeWrite import writeNewEmployee
 from file_read import readEmployeesCSV
+from inputUtility import *
 
+departments = set()
 def add_employee():
-    firstname = input("Enter employee first name: ")
-    lastname = input("Enter employee last name: ")
-    emp_id = input("Enter employee id: ")
-    date_of_employment = input("Enter employee date of employment: ")
-    salary = input("Enter employee salary: ")
-    department = input("Enter employee department: ")
-    employee = Employee(firstname, lastname, date_of_employment, salary, department,emp_id) # calls on our employee class
+    firstname, lastname = getName()
+    date_of_employment = getDate()
+    salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
+    emp_id = acceptInt("Enter employee id: ", low=0, high=8_000_000_000)
+    department = acceptStr("Enter employee department: ", departments)
+    employee = Employee(firstname, lastname, date_of_employment, salary, department, emp_id) # calls on our employee class
     writeNewEmployee(employee) # write here
     print("Employee added successfully!")
 
