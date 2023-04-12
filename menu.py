@@ -54,7 +54,8 @@ def list_employees():
     id = input("Enter employee id to list information: ")
     # Show employee information
     employees = readEmployeesFile()
-    if id in employees:
+    
+    if id in employees.keys:
         employee = employees[id]
         print("Employee Information:")
         print(f"ID: {employee.emp_id}")
