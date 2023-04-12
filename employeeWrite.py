@@ -1,16 +1,7 @@
 import csv
-class employee():
-    first = "hi"
-    last = "s"
-    DOE = "DOE"
-    salary = "sal"
-    department = "dep"
-    def __init__(self):
-        first = "hi"
-        last = "lasts"
-        DOE = "DOE"
-        salary = "sal"
-        department = "dep"
+import employee
+
+
 
 
 def openEmployeeFile():
@@ -39,7 +30,6 @@ def writeNewEmployee(employee):
 
 
 
-frank = employee()
-writeNewEmployee(frank)
+
 
     
