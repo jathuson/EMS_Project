@@ -9,6 +9,19 @@ class Employee:
         self._department = department
         self._empId: int = prevID+1
 
+    @staticmethod
+    def fromDict(inpDict: dict):
+        try:
+            firstname: str = inpDict['firstname']
+            lastname: str = inpDict['lastname']
+            startDate: datetime.date = inpDict['startDate']
+            salary: int = inpDict['salary']
+            department = inpDict['department']
+            empId: int = inpDict['empId']
+            return Employee(firstname,lastname, startDate, salary, department, empId-1)
+        except KeyError as e:
+            print("Error Dictionary is not in a supported format")
+            return False
 
     def __eq__(self,other):
         if type(other) == Employee: return self.empId == other.empId
