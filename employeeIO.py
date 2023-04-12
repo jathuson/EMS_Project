@@ -1,20 +1,13 @@
 import csv
-import employee
 import shutil
 import tempfile
-
-
-
-    
-
-  
 
 def closeEmployeeFile(csvFile):
 
     csvFile.close()
 
 # Read csv file as dictionary
-def readEmployeesFile():
+def readEmployeesFile() -> dict:
     try:
         csvFile = open("employees.csv", "r")
     except FileNotFoundError:
@@ -70,3 +63,4 @@ def updateEmployee(employee):
     tempFile.close()
     file.close()
 
+readEmployeesFile()
