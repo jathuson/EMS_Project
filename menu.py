@@ -53,3 +53,20 @@ def display_menu():
     print("3. Update employee")
     print("4. List employees")
     print("5. Quit")
+
+while True:
+    display_menu()
+    choice = input("Enter your choice (1-5): ")
+    if choice == '1':
+        add_employee()
+    elif choice == '2':
+        remove_employee()
+    elif choice == '3':
+        update_employee()
+    elif choice == '4':
+        list_employees()
+    elif choice == '5':
+        print("Goodbye!")
+        break
+    else:
+        print("Invalid choice. Please try again.")
