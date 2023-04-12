@@ -1,6 +1,7 @@
 import datetime
 
 class Employee:
+
     def __init__(self, firstname: str, lastname: str, startDate: datetime.date, salary: int, department: str, prevID: int):
         self._firstname: str = firstname
         self._lastname: str = lastname
@@ -9,7 +10,15 @@ class Employee:
         self._department = department
         self._empId: int = prevID+1
 
-
+    @staticmethod
+    def fromDict(inpDict: dict):
+        firstname: str = inpDict['firstname']
+        lastname: str = inpDict['lastname']
+        startDate: datetime.date = inpDict['startDate']
+        salary: int = inpDict['salary']
+        department = inpDict['department']
+        empId: int = inpDict['empId']
+        return Employee(firstname,lastname, startDate, salary, department, empId-1)
     def __eq__(self,other):
         if type(other) == Employee: return self.empId == other.empId
         else: return False
@@ -46,8 +55,8 @@ class Employee:
         return self._startDate
 
     @startDate.setter
-    def startDate(self, value: str):
-        self._startDate = datetime.date.fromisoformat(value)
+    def startDate(self, value: datetime.date):
+        self._startDate = value
 
     @property
     def salary(self) -> int:
