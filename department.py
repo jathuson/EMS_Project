@@ -14,6 +14,18 @@ class Department:
             inDepDict[employee.empId] = employee.copy()
         return inDepDict
 
+    def __repr__(self):
+        return f"{self.name} (${self.budget})\n {self.phone}"
+    @staticmethod
+    def fromDict(self, inpDict: dict):
+        try:
+            name = inpDict["name"]
+            budget = inpDict["budget"]
+            phone = inpDict['phone']
+            return Department(name, budget, phone)
+        except KeyError:
+            print("Error: Dictionary is not in valid format")
+            return False
 
     @property
     def name(self) -> str:
