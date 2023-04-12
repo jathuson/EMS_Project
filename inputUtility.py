@@ -1,7 +1,22 @@
 import datetime
+import re
 
-class OutOfRangeError(Exception):
-    pass
+class OutOfRangeError(Exception): pass
+
+
+class InvalidOption(Exception): pass
+
+
+def getPhone() -> str:
+    while True:
+        try:
+            phone = input("PLease Enter the Department phone number in the format (xxx)-xxx-xxxx")
+            if re.search("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",phone):
+                return phone
+            else:
+                raise InvalidOption
+        except InvalidOption:
+            print(f"Error: {phone} is not in the correct format")
 
 def getName() -> tuple:
     while True:  # While loop repeats until valid input is accepted
@@ -24,10 +39,11 @@ def getName() -> tuple:
             pass
     return first, last
 
+
 def acceptStr(inpStr: str, memb: set) -> str:
     while True:
         try:
-            inp: str = input(inpStr+"\n").lower().strip()
+            inp: str = input(inpStr + "\n").lower().strip()
             if inp not in memb:
                 raise InvalidOption
             break
@@ -37,10 +53,11 @@ def acceptStr(inpStr: str, memb: set) -> str:
             print(f"{inp} is not a valid option. Please choose from {memb}")
     return inp
 
+
 def acceptInt(inpStr: str, low: int, high: int) -> int:
     while True:
         try:
-            inp: str = input(inpStr+"\n")
+            inp: str = input(inpStr + "\n")
             num: int = int(inp)
             if num < low or num > high:
                 raise OutOfRangeError
@@ -53,6 +70,7 @@ def acceptInt(inpStr: str, low: int, high: int) -> int:
             print(f"Number is out of range!")
     return num
 
+
 def getDate():
     while True:
         try:
@@ -64,4 +82,3 @@ def getDate():
             print(e)
         except TypeError as e:
             print(e)
-

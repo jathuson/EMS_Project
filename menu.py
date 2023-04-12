@@ -3,6 +3,7 @@ from employee import Employee
 from employeeWrite import writeNewEmployee
 from file_read import readEmployeesCSV
 from inputUtility import *
+from department import Department
 
 departments = set()
 def add_employee():
@@ -50,7 +51,50 @@ def list_employees():
                 "\nDate of Employment:", employee.date_of_employment, 
                 "\nSalary:", employee.salary, 
                 "\nDepartment:", employee.department)
-        
+
+
+def add_department():
+    name = input("Please enter the name of the new department: \n")
+    budget = acceptInt("Please enter the departments budget: ", 0, 1_000_000_000_000)
+    phone = getPhone()
+    department = Department(name, budget, phone)
+    writeNewDepartment(department)
+
+def remove_department():
+    name = input("Please enter the name of the department you wish to delete: \n")
+    departments: dict = readDepartmentsCSV()
+    if name in departments.keys():
+        departments.pop(name)
+        return writeDeparmentsCSV()
+    else:
+        print(f"Error: Department {name} not found")
+        return False
+
+def update_department():
+    name = input("Please enter the name of the department yuo wish to deelete: \n")
+
+
+def list_departments():
+    departments = readDepartmentsCSV()
+    for department in departments:
+        print(department)
+
+
+def list_employees_by_department():
+    name = input("Please enter the name of the department you wish to see: \n")
+    departments = readDepartmentCSV()
+    employees = readEmployeesCSV()
+    if name in departments.keys():
+        department = departments[name]
+        print(department)
+        employeesInDep = department.inDep(employees)
+        for _, employee in employeesInDep:
+            print(employee)
+        return True
+    else:
+        print(f"Error: Department {name} not found")
+        return False
+
 # Welcome Message and main menu dialog, with choice for which task they would like to do.
 def display_menu():
     print("Welcome to the Employee Management System!")
