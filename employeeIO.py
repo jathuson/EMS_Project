@@ -16,15 +16,16 @@ def closeEmployeeFile(csvFile):
 # Read csv file as dictionary
 def readEmployeesFile():
     try:
-        file = open("employees.csv", "r+")
+        csvFile = open("employees.csv", "r")
     except FileNotFoundError:
-        file = open("employees.csv", "w")
+        csvFile = open("employees.csv", "w")
         fieldnames = ['firstName', 'lastName',
                       'startDate', 'salary', 'department', 'empID']
-        write = csv.DictWriter(file, fieldnames=fieldnames)
+        write = csv.DictWriter(csvFile, fieldnames=fieldnames)
         write.writeheader()
-    employees = [line for line in csv.DictReader(file)]
-    file.close()
+    employees = {}
+    [employees.update({line['empID']: line}) for line in csv.DictReader(csvFile)] # Load employees into dictionary
+    closeEmployeeFile(csvFile)
     return employees
 
 # Write new employee to csv file
