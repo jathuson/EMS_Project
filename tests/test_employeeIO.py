@@ -7,7 +7,7 @@ class TestReadEmployeesFile(unittest.TestCase):
     def test_fields(self):
         employees = readEmployeesFile()
         employee = employees.popitem()
-        required_fields = ['firstName', 'lastName', 'startDate', 'salary', 'department', 'empID']
+        required_fields = ['firstName', 'lastName', 'startDate', 'salary', 'department', 'empId']
         self.assertEqual(list(employee[1].keys()), required_fields)
 
 
