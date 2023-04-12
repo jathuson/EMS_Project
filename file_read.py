@@ -1,4 +1,3 @@
-import json
 import csv
 
 # Read csv file as dictionary
