@@ -68,9 +68,9 @@ def get_changes_employee():
             date_of_employment = getDate()
             salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
             department = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
-            employee = Employee(firstname, lastname, date_of_employment, salary, department, int(employee['empId']))
+            employeeUpDated = Employee(firstname, lastname, date_of_employment, salary, department, int(employee['empId']-1))
             # Writes the new employee information into the employees.csv
-            updateEmployee(employee)
+            updateEmployee(employeeUpDated)
             updateState()
             break
         elif infocheck == 'n':
