@@ -18,7 +18,6 @@ def getPhone() -> str:
         except InvalidOption:
             print(f"Error: {phone} is not in the correct format")
 
-
 class InvalidOption(Exception): pass
 
 
