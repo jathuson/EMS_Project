@@ -2,7 +2,7 @@ import csv
 from department import Department
 from employee import Employee
 
-FIELDNAMES = ["name", "budget","phone"]
+FIELDNAMES = ["name", "budget", "phone"]
 
 
 def readDepartmentCSV() -> dict:
@@ -12,13 +12,13 @@ def readDepartmentCSV() -> dict:
             [departments.update({line['name']: line}) for line in csv.DictReader(csvFile)]
     except FileNotFoundError:
         writeDepartmentHeader()
-        readDepartmentCSV()
+        return readDepartmentCSV()
     return departments
 
 
 def writeNewDepartment(department: Department):
     try:
-        with open("departments.csv","a") as csvFile:
+        with open("departments.csv", "a") as csvFile:
             write = csv.DictWriter(csvFile, fieldnames=FIELDNAMES)
             write.writerow(department.toDict())
     except FileNotFoundError:
@@ -35,9 +35,10 @@ def writeDepartmentHeader():
 def updateDepartment():
     pass
 
+
 def writeDepartmentCSV(departments):
-    with open("departments.csv","w") as csvFile:
-        write = csv.DictWriter(csvFile,fieldnames=FIELDNAMES)
+    with open("departments.csv", "w") as csvFile:
+        write = csv.DictWriter(csvFile, fieldnames=FIELDNAMES)
         write.writeheader()
-        for _,department in departments:
+        for _, department in departments:
             write.writerow(department.toDict())
