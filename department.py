@@ -27,6 +27,11 @@ class Department:
             print("Error: Dictionary is not in valid format")
             return False
 
+    def toDict(self) -> dict:
+        return {"name": self.name,
+                "budget": self.budget,
+                "phone": self.phone}
+
     @property
     def name(self) -> str:
         return self._name

@@ -3,21 +3,23 @@ from employee import Employee
 from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee
 from inputUtility import *
 from department import Department
+from departmentIO import readDepartmentCSV, updateDepartment, writeNewDepartment
 
-departments = set()
+DEPARTMENTS = readDepartmentCSV()
+EMPLOYEES = readEmployeesFile()
 def add_employee():
     firstname, lastname = getName()
     date_of_employment = getDate()
     salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
     emp_id = acceptInt("Enter employee id: ", low=0, high=8_000_000_000)
-    department = acceptStr("Enter employee department: ", departments)
+    department = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
     employee = Employee(firstname, lastname, date_of_employment, salary, department, emp_id) # calls on our employee class
     writeNewEmployee(employee) # write here
     print("Employee added successfully!")
 
 def remove_employee():
     id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
-    employees = readEmployeesFile()
+    employees = EMPLOYEES.copy()
     for employee in employees:
         if employee.empId == id:
             employees.remove(employee)
@@ -29,7 +31,7 @@ def remove_employee():
 def get_changes_employee():
     while True:
         id = input("Enter employee id to update: ")
-        employees = readEmployeesFile()
+        employees = EMPLOYEES.copy()
         if id not in employees:
             print("Invalid employee id, please try again.")
             continue
@@ -39,7 +41,7 @@ def get_changes_employee():
             firstname, lastname = getName()
             date_of_employment = getDate()
             salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
-            department = acceptStr("Enter employee department: ", departments)
+            department = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
             employee = Employee(firstname, lastname, date_of_employment, salary, department, id)
             # Writes the new employee information into the employees.csv
             updateEmployee(employee)
@@ -77,10 +79,10 @@ def add_department():
 
 def remove_department():
     name = input("Please enter the name of the department you wish to delete: \n")
-    departments: dict = readDepartmentsCSV()
+    departments: dict = readDepartmentCSV()
     if name in departments.keys():
         departments.pop(name)
-        return writeDeparmentsCSV()
+        return writeDeparmentCSV(departments)
     else:
         print(f"Error: Department {name} not found")
         return False
@@ -90,7 +92,7 @@ def update_department():
 
 
 def list_departments():
-    departments = readDepartmentsCSV()
+    departments = readDepartmentCSV()
     for department in departments:
         print(department)
 
@@ -98,7 +100,7 @@ def list_departments():
 def list_employees_by_department():
     name = input("Please enter the name of the department you wish to see: \n")
     departments = readDepartmentCSV()
-    employees = readEmployeesCSV()
+    employees = readEmployeesFile()
     if name in departments.keys():
         department = departments[name]
         print(department)
