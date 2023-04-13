@@ -17,7 +17,7 @@ class Department:
     def __repr__(self):
         return f"{self.name} (${self.budget})\n {self.phone}"
     @staticmethod
-    def fromDict(self, inpDict: dict):
+    def fromDict(inpDict: dict):
         try:
             name = inpDict["name"]
             budget = inpDict["budget"]
