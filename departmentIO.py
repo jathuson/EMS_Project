@@ -36,5 +36,8 @@ def updateDepartment():
     pass
 
 def writeDepartmentCSV(departments):
-    try:
-        with open("")
+    with open("departments.csv","w") as csvFile:
+        write = csv.DictWriter(csvFile,fieldnames=FIELDNAMES)
+        write.writeheader()
+        for _,department in departments:
+            write.writerow(department.toDict())
