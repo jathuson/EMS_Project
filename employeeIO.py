@@ -66,7 +66,27 @@ def updateEmployee(employee):
             print("SLKDJNFSKDJFN")
             print(row)
             writer.writerow(row)
-        shutil.copy(tempFile.name, "employees.csv")
+    shutil.move(tempFile.name, "employees.csv")
+def removeEmployee(employee):
+    
+    tempFile = NamedTemporaryFile(mode="w", delete=False)
+ 
+    fieldnames = ['firstName', 'lastName','startDate', 'salary', 'department', 'empId']
+    
+    filename ="employees.csv"
+
+    with open(filename, 'r+') as file, tempFile:
+        writer = csv.DictWriter(tempFile, fieldnames=fieldnames)
+        reader = csv.DictReader(file, fieldnames=fieldnames)
+        employee = employee.toDict()
+        for row in reader:
+            print(row)
+            if row['empId'] != str(employee['empId']):
+            
+                               
+                row = {'firstName': row['firstName'], 'lastName': row['lastName'], 'startDate': row['startDate'], 'salary': row['salary'], 'department': row['department'], 'empId': row['empId']}
+                writer.writerow(row)
+    shutil.move(tempFile.name, "employees.csv")
     
 
 

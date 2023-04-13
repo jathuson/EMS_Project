@@ -1,6 +1,6 @@
 import unittest
 
-from employeeIO import readEmployeesFile, writeNewEmployee, updateEmployee
+from employeeIO import readEmployeesFile, writeNewEmployee, updateEmployee, removeEmployee
 import employee
 import csv
 from datetime import date
@@ -55,11 +55,7 @@ class TestUpdateEmployee(unittest.TestCase):
         csvFile.close()
 
         writeNewEmployee(newEmployee)
-        newEmployee._empId = 1
-        writeNewEmployee(newEmployee)
-        newEmployee._empId = 2
-        writeNewEmployee(newEmployee)
-
+        
 
         
 
@@ -70,6 +66,33 @@ class TestUpdateEmployee(unittest.TestCase):
         employeee = employees.popitem()
         requied_fields = ["Test", "Case", str(date.today()), str(1000), "WA", str(1)]
         self.assertEqual(list(employeee[1].values()), requied_fields)
+
+class TestremoveEmployee(unittest.TestCase):
+    def test_fields(self):
+        newEmployee = employee.Employee("Test", "Case", date.today(), 1123, "WA", 0)
+        csvFile = open("employees.csv", "w")
+        fieldnames = ['firstName', 'lastName',
+                      'startDate', 'salary', 'department', 'empId']
+        write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+        write.writeheader()
+        csvFile.close()
+
+        writeNewEmployee(newEmployee)
+
+        newEmployee = employee.Employee("Test", "Case", date.today(), 1, "WA", 1)
+        writeNewEmployee(newEmployee)
+
+        
+
+        removedEmployee = employee.Employee("Test", "Case", date.today(), 1000, "WA", 0)
+        removeEmployee(removedEmployee)
+        employees = readEmployeesFile()
+        
+        employeee = employees.popitem()
+        
+        requied_fields = ["Test", "Case", str(date.today()), str(1), "WA", str(2)]
+        self.assertEqual(list(employeee[1].values()), requied_fields)
+
 
 
 if __name__ == '__main__':
