@@ -17,7 +17,7 @@ def add_employee():
     
     
     try:
-        lastEMP = EMPLOYEES.popitem()
+        lastEMP = EMPLOYEES.copy.popitem()
         emp_id =int(lastEMP[1]['empId'])
     except:
        
