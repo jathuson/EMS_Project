@@ -1,6 +1,6 @@
 # Imports from employee and department
 from employee import Employee
-from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee
+from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee, removeEmployee
 from inputUtility import *
 from department import Department
 from departmentIO import readDepartmentCSV, updateDepartment, writeNewDepartment, writeDepartmentCSV
@@ -35,8 +35,10 @@ def remove_employee():
     id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
     employees = EMPLOYEES.copy()
     for employee in employees:
-        if employee.empId == id:
-            employees.pop(employee.empId)
+        if employees[employee]['empId'] == str(id):
+            employee_object = Employee.fromDict(employees[employee])
+            del employees[employee]
+            removeEmployee(employee_object)
             print("Employee removed successfully!")
             return
         else:
@@ -75,23 +77,23 @@ def get_changes_employee():
             print("Invalid input, please try again.")
             continue
     
-
 def list_employees():
     id = input("Enter employee id to list information: ")
     # Show employee information
     employees = readEmployeesFile()
-    
-    if id in employees.keys:
-        employee = employees[id]
-        print("Employee Information:")
-        print(f"ID: {employee.emp_id}")
-        print(f"Name: {employee.firstname} {employee.lastname}")
-        print(f"Department: {employee.department}")
-        print(f"Date of Employment: {employee.date_of_employment}")
-        print(f"Salary: {employee.salary}")
-    else:
+    try:
+        if id in employees.keys():
+            employee = employees[id]
+            print("Employee Information:")
+            print(f"ID: {employee['empId']}")
+            print(f"Name: {employee['firstName']} {employee['lastName']}")
+            print(f"Department: {employee['department']}")
+            print(f"Date of Employment: {employee['startDate']}")
+            print(f"Salary: {employee['salary']}")
+        else:
+            print(f"Employee with ID {id} not found.")
+    except KeyError:
         print(f"Employee with ID {id} not found.")
-
 
 def add_department():
     name = input("Please enter the name of the new department: \n")
@@ -158,8 +160,7 @@ def list_employees_by_department():
     else:
         print(f"Error: Department {name} not found")
         return False
-
-
+        
 # Welcome Message and main menu dialog, with choice for which task they would like to do.
 def display_menu():
     print("Welcome to the Employee Management System!")
