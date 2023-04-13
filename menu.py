@@ -68,7 +68,7 @@ def get_changes_employee():
             date_of_employment = getDate()
             salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
             department = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
-            employeeUpDated = Employee(firstname, lastname, date_of_employment, salary, department, int(employee['empId']-1))
+            employeeUpDated = Employee(firstname, lastname, date_of_employment, salary, department, int(employee['empId'])-1)
             # Writes the new employee information into the employees.csv
             updateEmployee(employeeUpDated)
             updateState()
@@ -86,12 +86,14 @@ def list_employees():
     try:
         if id in employees.keys():
             employee = employees[id]
+            print('---------------------')
             print("Employee Information:")
             print(f"ID: {employee['empId']}")
             print(f"Name: {employee['firstName']} {employee['lastName']}")
             print(f"Department: {employee['department']}")
             print(f"Date of Employment: {employee['startDate']}")
             print(f"Salary: {employee['salary']}")
+            print('---------------------')
         else:
             print(f"Employee with ID {id} not found.")
     except KeyError:
