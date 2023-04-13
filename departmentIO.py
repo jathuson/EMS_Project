@@ -27,7 +27,7 @@ def writeNewDepartment(department: Department):
 
 
 def writeDepartmentHeader():
-    with open("employees.csv", "w") as csvFile:
+    with open("departments.csv", "w") as csvFile:
         write = csv.DictWriter(csvFile, fieldnames=FIELDNAMES)
         write.writeheader()
 
@@ -35,5 +35,6 @@ def writeDepartmentHeader():
 def updateDepartment():
     pass
 
-def writeDepartmentCSV(depa):
-    pass
+def writeDepartmentCSV(departments):
+    try:
+        with open("")
