@@ -9,7 +9,7 @@ def readDepartmentCSV() -> dict:
     try:
         with open("departments.csv", "r") as csvFile:
             departments = {}
-            [departments.update({line['name']: line}) for line in csv.DictReader(csvFile)]
+            [departments.update({line['name']: Department.fromDict(line)}) for line in csv.DictReader(csvFile)]
     except FileNotFoundError:
         writeDepartmentHeader()
         return readDepartmentCSV()
@@ -36,9 +36,10 @@ def updateDepartment():
     pass
 
 
-def writeDepartmentCSV(departments):
+def writeDepartmentCSV(departments: dict):
     with open("departments.csv", "w") as csvFile:
         write = csv.DictWriter(csvFile, fieldnames=FIELDNAMES)
         write.writeheader()
-        for _, department in departments:
+        for department in departments.values():
+            print(department)
             write.writerow(department.toDict())

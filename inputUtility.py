@@ -10,7 +10,7 @@ class InvalidOption(Exception): pass
 def getPhone() -> str:
     while True:
         try:
-            phone = input("PLease Enter the Department phone number in the format (xxx)-xxx-xxxx")
+            phone = input("PLease Enter the Department phone number in the format (xxx)-xxx-xxxx\n")
             if re.search("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",phone):
                 return phone
             else:
@@ -98,7 +98,7 @@ class InvalidOption(Exception): pass
 def getPhone() -> str:
     while True:
         try:
-            phone = input("PLease Enter the Department phone number in the format (xxx)-xxx-xxxx")
+            phone = input("PLease Enter the Department phone number in the format (xxx)-xxx-xxxx\n")
             if re.search("^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$",phone):
                 return phone
             else:
