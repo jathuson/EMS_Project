@@ -1,6 +1,6 @@
 # Imports from employee and department
 from employee import Employee
-from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee
+from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee, removeEmployee
 from inputUtility import *
 from department import Department
 
@@ -19,8 +19,10 @@ def remove_employee():
     id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
     employees = readEmployeesFile()
     for employee in employees:
-        if employee.empId == id:
-            employees.remove(employee)
+        if employees[employee]['empId'] == str(id):
+            employee_object = Employee.fromDict(employees[employee])
+            del employees[employee]
+            removeEmployee(employee_object)
             print("Employee removed successfully!")
             return
         else:

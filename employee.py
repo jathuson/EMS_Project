@@ -11,13 +11,13 @@ class Employee:
 
     @staticmethod
     def fromDict(inpDict: dict):
-        firstname: str = inpDict['firstname']
-        lastname: str = inpDict['lastname']
+        firstname: str = inpDict['firstName']
+        lastname: str = inpDict['lastName']
         startDate: datetime.date = inpDict['startDate']
         salary: int = inpDict['salary']
         department = inpDict['department']
         empId: int = inpDict['empId']
-        return Employee(firstname,lastname, startDate, salary, department, empId-1)
+        return Employee(firstname,lastname, startDate, salary, department, int(empId)-1)
 
     def copy(self):
         return Employee(self.firstname, self.lastname, self.startDate, self.salary, self.department, self.empId-1)
