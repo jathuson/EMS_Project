@@ -4,7 +4,7 @@ from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee
 from inputUtility import *
 from department import Department
 
-departments = set()
+departments = {'IT', 'HR', 'Sales', 'Marketing', 'Finance', 'Legal', 'Operations', 'QA'}
 def add_employee():
     firstname, lastname = getName()
     date_of_employment = getDate()
@@ -50,23 +50,23 @@ def get_changes_employee():
             print("Invalid input, please try again.")
             continue
     
-
 def list_employees():
     id = input("Enter employee id to list information: ")
     # Show employee information
     employees = readEmployeesFile()
-    
-    if id in employees.keys:
-        employee = employees[id]
-        print("Employee Information:")
-        print(f"ID: {employee.emp_id}")
-        print(f"Name: {employee.firstname} {employee.lastname}")
-        print(f"Department: {employee.department}")
-        print(f"Date of Employment: {employee.date_of_employment}")
-        print(f"Salary: {employee.salary}")
-    else:
+    try:
+        if id in employees.keys():
+            employee = employees[id]
+            print("Employee Information:")
+            print(f"ID: {employee.emp_id}")
+            print(f"Name: {employee.firstname} {employee.lastname}")
+            print(f"Department: {employee.department}")
+            print(f"Date of Employment: {employee.date_of_employment}")
+            print(f"Salary: {employee.salary}")
+        else:
+            print(f"Employee with ID {id} not found.")
+    except:
         print(f"Employee with ID {id} not found.")
-
 
 def add_department():
     name = input("Please enter the name of the new department: \n")
@@ -110,8 +110,6 @@ def list_employees_by_department():
         print(f"Error: Department {name} not found")
         return False
 
-=======
-
         
 # Welcome Message and main menu dialog, with choice for which task they would like to do.
 def display_menu():
@@ -122,20 +120,20 @@ def display_menu():
     print("4. List employees")
     print("5. Quit")
 
-
-while True:
-    display_menu()
-    choice = input("Enter your choice (1-5): ")
-    if choice == '1':
-        add_employee()
-    elif choice == '2':
-        remove_employee()
-    elif choice == '3':
-        get_changes_employee()
-    elif choice == '4':
-        list_employees()
-    elif choice == '5':
-        print("Goodbye!")
-        break
-    else:
-        print("Invalid choice. Please try again.")
+if __name__ == "__main__":
+    while True:
+        display_menu()
+        choice = input("Enter your choice (1-5): ")
+        if choice == '1':
+            add_employee()
+        elif choice == '2':
+            remove_employee()
+        elif choice == '3':
+            get_changes_employee()
+        elif choice == '4':
+            list_employees()
+        elif choice == '5':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
