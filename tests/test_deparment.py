@@ -36,7 +36,7 @@ class TestDepartment(unittest.TestCase):
     def test_fromDict(self):
         inpDict1 = {"name": "Marketing", "budget": 10000, "phone": "123-456-7890"}
         inpDict2 = {"name": "Sales", "budget": 15000, "phone": "098-765-4321"}
-        # self.assertEqual(Department.fromDict(inpDict1), self.dep1)
+        self.assertEqual(Department.fromDict(inpDict1), self.dep1)
         self.assertEqual(Department.fromDict(inpDict2), self.dep2)
 
     def test_name(self):
