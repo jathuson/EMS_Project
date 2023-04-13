@@ -65,7 +65,7 @@ def list_employees():
             print(f"Salary: {employee.salary}")
         else:
             print(f"Employee with ID {id} not found.")
-    except:
+    except KeyError:
         print(f"Employee with ID {id} not found.")
 
 def add_department():
@@ -109,8 +109,6 @@ def list_employees_by_department():
     else:
         print(f"Error: Department {name} not found")
         return False
-
-
         
 # Welcome Message and main menu dialog, with choice for which task they would like to do.
 def display_menu():

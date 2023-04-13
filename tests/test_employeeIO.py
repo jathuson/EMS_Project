@@ -15,13 +15,14 @@ class TestReadEmployeesFile(unittest.TestCase):
 
     def test_dummy_employee(self):
         employees = readEmployeesFile()
+        writeNewEmployee(employee.Employee("John", "Doe", '2020-01-01', '100000', "IT", 1))
         employee = employees.popitem()
         self.assertEqual(employee[1]['firstName'], 'John')
         self.assertEqual(employee[1]['lastName'], 'Doe')
         self.assertEqual(employee[1]['startDate'], '2020-01-01')
         self.assertEqual(employee[1]['salary'], '100000')
         self.assertEqual(employee[1]['department'], 'IT')
-        self.assertEqual(employee[1]['empId'], '1'
+        self.assertEqual(employee[1]['empId'], '1')
 
 
 class TestWriteNewEmployee(unittest.TestCase):
