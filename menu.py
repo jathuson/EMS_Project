@@ -3,10 +3,12 @@ from employee import Employee
 from employeeIO import writeNewEmployee, readEmployeesFile, updateEmployee
 from inputUtility import *
 from department import Department
-from departmentIO import readDepartmentCSV, updateDepartment, writeNewDepartment
+from departmentIO import readDepartmentCSV, updateDepartment, writeNewDepartment, writeDepartmentCSV
 
 DEPARTMENTS = readDepartmentCSV()
 EMPLOYEES = readEmployeesFile()
+
+
 def add_employee():
     firstname, lastname = getName()
     date_of_employment = getDate()
@@ -25,18 +27,21 @@ def add_employee():
     department = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
     employee = Employee(firstname, lastname, date_of_employment, salary, department, emp_id) # calls on our employee class
     writeNewEmployee(employee) # write here
+    updateState()
     print("Employee added successfully!")
+
 
 def remove_employee():
     id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
     employees = EMPLOYEES.copy()
     for employee in employees:
         if employee.empId == id:
-            employees.remove(employee)
+            employees.pop(employee.empId)
             print("Employee removed successfully!")
             return
         else:
             print("Employee with id", id, "not found.")
+
 
 def get_changes_employee():
     while True:
@@ -62,6 +67,7 @@ def get_changes_employee():
             employee = Employee(firstname, lastname, date_of_employment, salary, department, id)
             # Writes the new employee information into the employees.csv
             updateEmployee(employee)
+            updateState()
             break
         elif infocheck == 'n':
             continue
@@ -93,19 +99,43 @@ def add_department():
     phone = getPhone()
     department = Department(name, budget, phone)
     writeNewDepartment(department)
+    updateState()
+
 
 def remove_department():
     name = input("Please enter the name of the department you wish to delete: \n")
     departments: dict = readDepartmentCSV()
     if name in departments.keys():
         departments.pop(name)
-        return writeDeparmentCSV(departments)
+        writeDepartmentCSV(departments)
+        updateState()
     else:
         print(f"Error: Department {name} not found")
-        return False
+
 
 def update_department():
-    name = input("Please enter the name of the department yuo wish to deelete: \n")
+    while True:
+        name = input("Enter name of department you wish to edit:\n")
+        departments = DEPARTMENTS.copy()
+        if name not in departments.keys():
+            print(f"Cannot find {name} in departments")
+            continue
+        print(departments[name])
+        infocheck = input('Is this the correct info being displayed? (y/n)').lower()
+        if infocheck == 'y':
+            name = input("Please enter the new department name:\n")
+            budget = acceptInt("Please Enter the departments budget: ", low=0, high=10_000_000_000_000)
+            phone = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
+            department = Department(name, budget, phone)
+            writeDepartmentCSV(departments)
+            updateState()
+            break
+        elif infocheck == 'n':
+            continue
+        else:
+            print("Invalid input, please try again.")
+            continue
+    print("Department Successfully updated")
 
 
 def list_departments():
@@ -130,7 +160,6 @@ def list_employees_by_department():
         return False
 
 
-        
 # Welcome Message and main menu dialog, with choice for which task they would like to do.
 def display_menu():
     print("Welcome to the Employee Management System!")
@@ -141,19 +170,27 @@ def display_menu():
     print("5. Quit")
 
 
-while True:
-    display_menu()
-    choice = input("Enter your choice (1-5): ")
-    if choice == '1':
-        add_employee()
-    elif choice == '2':
-        remove_employee()
-    elif choice == '3':
-        get_changes_employee()
-    elif choice == '4':
-        list_employees()
-    elif choice == '5':
-        print("Goodbye!")
-        break
-    else:
-        print("Invalid choice. Please try again.")
+def updateState():
+    global DEPARTMENTS
+    DEPARTMENTS = readDepartmentCSV()
+    global EMPLOYEES
+    EMPLOYEES = readEmployeesFile()
+
+
+def main():
+    while True:
+        display_menu()
+        choice = input("Enter your choice (1-5): ")
+        if choice == '1':
+            add_employee()
+        elif choice == '2':
+            remove_employee()
+        elif choice == '3':
+            get_changes_employee()
+        elif choice == '4':
+            list_employees()
+        elif choice == '5':
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
