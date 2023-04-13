@@ -1,7 +1,6 @@
 import datetime
 
 class Employee:
-
     def __init__(self, firstname: str, lastname: str, startDate: datetime.date, salary: int, department: str, prevID: int):
         self._firstname: str = firstname
         self._lastname: str = lastname
@@ -59,8 +58,8 @@ class Employee:
         return self._startDate
 
     @startDate.setter
-    def startDate(self, value: datetime.date):
-        self._startDate = value
+    def startDate(self, value: str):
+        self._startDate = datetime.date.fromisoformat(value)
 
     @property
     def salary(self) -> int:
