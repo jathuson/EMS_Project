@@ -18,7 +18,7 @@ def add_employee():
     
     try:
         lastEMP = EMPLOYEES.popitem()
-        emp_id =lastEMP[1]['empId']
+        emp_id =int(lastEMP[1]['empId'])
     except:
        
         emp_id = 0
@@ -49,16 +49,18 @@ def get_changes_employee():
     while True:
         id = input("Enter employee id to update: ")
         employees = EMPLOYEES.copy()
+        
         if id not in employees:
             print("Invalid employee id, please try again.")
             continue
-
+        employee = employees[str(id)]
+        
         print("Employee Information:")
-        print(f"ID: {employee.emp_id}")
-        print(f"Name: {employee.firstname} {employee.lastname}")
-        print(f"Department: {employee.department}")
-        print(f"Date of Employment: {employee.date_of_employment}")
-        print(f"Salary: {employee.salary}")
+        print(f"ID: {employee['empId']}")
+        print(f"Name: {employee['firstName']} {employee['lastName']}")
+        print(f"Department: {employee['department']}")
+        print(f"Date of Employment: {employee['startDate']}")
+        print(f"Salary: {employee['salary']}")
         
         infocheck = input('Is this the correct info being displayed? (y/n)').lower()
         if infocheck == 'y':
@@ -66,7 +68,7 @@ def get_changes_employee():
             date_of_employment = getDate()
             salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
             department = acceptStr("Enter employee department: ", set(DEPARTMENTS.keys()))
-            employee = Employee(firstname, lastname, date_of_employment, salary, department, id)
+            employee = Employee(firstname, lastname, date_of_employment, salary, department, int(employee['empId']))
             # Writes the new employee information into the employees.csv
             updateEmployee(employee)
             updateState()
