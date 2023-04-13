@@ -23,13 +23,14 @@ class TestAddEmployee(unittest.TestCase):
             write.writeheader()
 
     @patch('builtins.input', create=True)
+    # @patch('builtins.print', create=True)
     def test_add_employee(self, mocked_input):
         mocked_input.side_effect = ['John Doe', "2023 01 01", '50005', 'HR']
 
         # Call add_employee() with the mocks
         add_employee()
 
-        mocked_input.assert_called_with("Employee added successfully!")
+        self.assertIn('501', readEmployeesFile())
 
 
 class TestRemoveEmployee(unittest.TestCase):
