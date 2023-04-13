@@ -31,7 +31,7 @@ def add_employee():
 
 def remove_employee():
     id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
-    EMPLOYEES = readEmployeesFile()
+    updateState()
     employees = EMPLOYEES.copy()
 
     for employee in employees:
