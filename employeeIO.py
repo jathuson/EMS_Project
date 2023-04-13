@@ -37,8 +37,6 @@ def writeNewEmployee(employee):
     write.writerow(employee.toDict())
     closeEmployeeFile(file)
 
-
-
 def updateEmployee(employee):
     
     tempFile = NamedTemporaryFile(mode="w", delete=False)
@@ -67,6 +65,7 @@ def updateEmployee(employee):
             print(row)
             writer.writerow(row)
     shutil.move(tempFile.name, "employees.csv")
+
 def removeEmployee(employee):
     
     tempFile = NamedTemporaryFile(mode="w", delete=False)
@@ -81,35 +80,29 @@ def removeEmployee(employee):
         employee = employee.toDict()
         for row in reader:
             print(row)
-            if row['empId'] != str(employee['empId']):
-            
-                               
+            if row['empId'] != str(employee['empId']):                  
                 row = {'firstName': row['firstName'], 'lastName': row['lastName'], 'startDate': row['startDate'], 'salary': row['salary'], 'department': row['department'], 'empId': row['empId']}
                 writer.writerow(row)
     shutil.move(tempFile.name, "employees.csv")
-    
-
-
-    
 
 def removeEmployee(employee):
-    tempFile = tempfile.NamedTemporryFile(mode="w", suffix=".py", prefix="employees")
+    tempFile = NamedTemporaryFile(mode="w", suffix=".py", prefix="employees")
  
-    fieldnames = ['firstName', 'lastName','startDate', 'salary', 'department', 'empID']
+    fieldnames = ['firstName', 'lastName','startDate', 'salary', 'department', 'empId']
     try:
         file = open("employees.csv", "r")
     except FileNotFoundError:
         file = open("employees.csv", "w")
         fieldnames = ['firstName', 'lastName',
-                      'startDate', 'salary', 'department', 'empID']
+                      'startDate', 'salary', 'department', 'empId']
         write = csv.DictWriter(file, fieldnames=fieldnames)
         write.writeheader()
     writer = csv.DictWriter(tempFile, fieldnames=fieldnames)
     reader = csv.DictReader(file, fieldnames=fieldnames)
     employee = employee.toDict()
     for row in reader:
-        if row['empID'] != str(employee['empID']):
-            row = {'firstName': row['firstName'], 'lastName': row['lastName'], 'startDate': row['startDate'], 'salary': row['salary'], 'department': row['department'], 'empID': row['empID']}
+        if row['empId'] != str(employee['empId']):
+            row = {'firstName': row['firstName'], 'lastName': row['lastName'], 'startDate': row['startDate'], 'salary': row['salary'], 'department': row['department'], 'empId': row['empId']}
             writer.writerow(row)
     shutil.move(tempFile.name, "employees.csv")
     tempFile.close()
