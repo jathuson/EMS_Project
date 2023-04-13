@@ -12,9 +12,7 @@ EMPLOYEES = readEmployeesFile()
 def add_employee():
     firstname, lastname = getName()
     date_of_employment = getDate()
-    salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)
-    #emp_id = acceptInt("Enter employee id: ", low=0, high=8_000_000_000)
-    
+    salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)    
     
     try:
         lastEMP = EMPLOYEES.popitem()

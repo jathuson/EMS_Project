@@ -2,43 +2,58 @@ import unittest
 from unittest.mock import patch, MagicMock
 import csv
 
-from menu import remove_employee, list_employees, DEPARTMENTS
+from menu import remove_employee, list_employees, DEPARTMENTS, add_employee
 from employeeIO import readEmployeesFile, writeNewEmployee
 from employee import Employee
 
 
-# class TestAddEmployee(unittest.TestCase):
-#     @patch("employeeIO.getName", return_value=("John", "Doe"))
-#     @patch("employeeIO.getDate", return_value="2023-01-01")
-#     @patch("employeeIO.acceptInt", side_effect=[50000, 123])
-#     @patch("employeeIO.acceptStr", return_value="HR")
-#     @patch("employeeIO.writeNewEmployee")
-#     @patch("employeeIO.updateState")
-#     @patch("builtins.print")
-#     def test_add_employee(self, mocked_print, mocked_updateState, mocked_writeNewEmployee, mocked_acceptStr, mocked_acceptInt, mocked_getDate, mocked_getName):
-#         # Call add_employee() with the mocks
-#         add_employee()
+class TestAddEmployee(unittest.TestCase):
+    def setUp(self):
+        # Create a new employee
+        self.newEmployee = Employee(
+            "John", "Doe", "2020/12/24", 100000, "IL", 500)
+        writeNewEmployee(self.newEmployee)
 
-#         # Verify getName(), getDate(), and acceptStr() were called
-#         mocked_getName.assert_called_once()
-#         mocked_getDate.assert_called_once()
-#         mocked_acceptStr.assert_called_once_with(
-#             "Enter employee department: ", set(DEPARTMENTS.keys()))
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
 
-#         # Verify the Employee object is created with the correct data
-#         mocked_writeNewEmployee.assert_called_once()
-#         added_employee = mocked_writeNewEmployee.call_args[0][0]
-#         self.assertIsInstance(added_employee, Employee)
-#         self.assertEqual(added_employee.firstname, "John")
-#         self.assertEqual(added_employee.lastname, "Doe")
-#         self.assertEqual(added_employee.date_of_employment, "2023-01-01")
-#         self.assertEqual(added_employee.salary, 50000)
-#         self.assertEqual(added_employee.department, "HR")
-#         self.assertEqual(added_employee.emp_id, 123)
+    @patch("employeeIO.getName", return_value=("John", "Doe"))
+    @patch("employeeIO.getDate", return_value="2023-01-01")
+    @patch("employeeIO.acceptInt", side_effect=[50000, 123])
+    @patch("employeeIO.acceptStr", return_value="HR")
+    @patch("employeeIO.writeNewEmployee")
+    @patch("employeeIO.updateState")
+    @patch("builtins.print")
+    def test_add_employee(self, mocked_print, mocked_updateState, mocked_writeNewEmployee, mocked_acceptStr, mocked_acceptInt, mocked_getDate, mocked_getName):
+        with patch("builtins.input", return_value=test_id), patch("builtins.print") as mocked_print:
+            # Call add_employee() with the mocks
+            add_employee()
 
-#         # Verify updateState() and print() are called
-#         mocked_updateState.assert_called_once()
-#         mocked_print.assert_called_once_with("Employee added successfully!")
+            # Verify getName(), getDate(), and acceptStr() were called
+            mocked_getName.assert_called_once()
+            mocked_getDate.assert_called_once()
+            mocked_acceptStr.assert_called_once_with(
+                "Enter employee department: ", set(DEPARTMENTS.keys()))
+
+            # Verify the Employee object is created with the correct data
+            mocked_writeNewEmployee.assert_called_once()
+            added_employee = mocked_writeNewEmployee.call_args[0][0]
+            self.assertIsInstance(added_employee, Employee)
+            self.assertEqual(added_employee.firstname, "John")
+            self.assertEqual(added_employee.lastname, "Doe")
+            self.assertEqual(added_employee.date_of_employment, "2023-01-01")
+            self.assertEqual(added_employee.salary, 50000)
+            self.assertEqual(added_employee.department, "HR")
+            self.assertEqual(added_employee.emp_id, 123)
+
+            # Verify updateState() and print() are called
+            mocked_updateState.assert_called_once()
+            mocked_print.assert_called_once_with("Employee added successfully!")
 
 
 class TestRemoveEmployee(unittest.TestCase):
