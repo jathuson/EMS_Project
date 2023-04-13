@@ -40,7 +40,14 @@ def get_changes_employee():
         if id not in employees:
             print("Invalid employee id, please try again.")
             continue
-        print(employees[id])
+
+        print("Employee Information:")
+        print(f"ID: {employee.emp_id}")
+        print(f"Name: {employee.firstname} {employee.lastname}")
+        print(f"Department: {employee.department}")
+        print(f"Date of Employment: {employee.date_of_employment}")
+        print(f"Salary: {employee.salary}")
+        
         infocheck = input('Is this the correct info being displayed? (y/n)').lower()
         if infocheck == 'y':
             firstname, lastname = getName()
