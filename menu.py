@@ -60,11 +60,11 @@ def list_employees():
         if id in employees.keys():
             employee = employees[id]
             print("Employee Information:")
-            print(f"ID: {employee.emp_id}")
-            print(f"Name: {employee.firstname} {employee.lastname}")
-            print(f"Department: {employee.department}")
-            print(f"Date of Employment: {employee.date_of_employment}")
-            print(f"Salary: {employee.salary}")
+            print(f"ID: {employee['empId']}")
+            print(f"Name: {employee['firstName']} {employee['lastName']}")
+            print(f"Department: {employee['department']}")
+            print(f"Date of Employment: {employee['startDate']}")
+            print(f"Salary: {employee['salary']}")
         else:
             print(f"Employee with ID {id} not found.")
     except KeyError:
