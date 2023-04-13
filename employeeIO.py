@@ -43,9 +43,9 @@ def updateEmployee(employee):
     
     tempFile = NamedTemporaryFile(mode="w", delete=False)
  
-    fieldnames = ['firstName', 'lastName','startDate', 'salary', 'department', 'empId']
+    fieldnames = ['firstName', 'lastName', 'startDate', 'salary', 'department', 'empId']
     
-    filename ="employees.csv"
+    filename = "employees.csv"
 
     with open(filename, 'r+') as file, tempFile:
         writer = csv.DictWriter(tempFile, fieldnames=fieldnames)
