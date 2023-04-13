@@ -1,3 +1,2 @@
-firstName,lastName,startDate,salary,department,empID
-pablo,castro,1/23/2023,50000,IT,123
-peter,pan,4/21/2018,73000,HR,321
+firstName,lastName,startDate,salary,department,empId
+Nikki,kelly,2023-04-12,45000,QA,1

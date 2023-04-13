@@ -19,6 +19,10 @@ class Employee:
         department = inpDict['department']
         empId: int = inpDict['empId']
         return Employee(firstname,lastname, startDate, salary, department, empId-1)
+
+    def copy(self):
+        return Employee(self.firstname, self.lastname, self.startDate, self.salary, self.department, self.empId-1)
+
     def __eq__(self,other):
         if type(other) == Employee: return self.empId == other.empId
         else: return False
@@ -27,12 +31,12 @@ class Employee:
         return f"{self.empId}: {self.firstname} {self.lastname}\n{self.department} ${self.salary} {self.startDate}"
 
     def toDict(self) -> dict:
-        return {"firstname": self.firstname,
-                "lastname": self.firstname,
-                "startDate": self.firstname,
-                "salary": self.firstname,
-                "department": self.firstname,
-                "empId": self.firstname}
+        return {"firstName": self.firstname,
+                "lastName": self.lastname,
+                "startDate": self.startDate,
+                "salary": self.salary,
+                "department": self.department,
+                "empId": self.empId}
 
     @property
     def firstname(self) -> str:
