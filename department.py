@@ -14,6 +14,11 @@ class Department:
             inDepDict[employee.empId] = employee.copy()
         return inDepDict
 
+    def __eq__(self, other):
+        if type(other) == Department:
+            return self.name == other.name
+        else:
+            return False
     def __repr__(self):
         return f"{self.name} (${self.budget})\n {self.phone}"
     @staticmethod
