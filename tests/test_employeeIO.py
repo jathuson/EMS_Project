@@ -13,6 +13,14 @@ class TestReadEmployeesFile(unittest.TestCase):
             "John", "Doe", '2020-01-01', '100000', "IT", 55)
         writeNewEmployee(self.newEmployee)
 
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
+
     def test_fields(self):
         employees = readEmployeesFile()
         employee = employees.popitem()
@@ -32,6 +40,14 @@ class TestReadEmployeesFile(unittest.TestCase):
 
 
 class TestWriteNewEmployee(unittest.TestCase):
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
+
     def test_fields(self):
         newEmployee = Employee("Test", "Case", date.today(), 0, "WA", 0)
         csvFile = open("employees.csv", "w")
@@ -50,6 +66,14 @@ class TestWriteNewEmployee(unittest.TestCase):
 
 
 class TestUpdateEmployee(unittest.TestCase):
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
+
     def test_fields(self):
         newEmployee = Employee("Test", "Case", date.today(), 1123, "WA", 0)
         csvFile = open("employees.csv", "w")
@@ -71,6 +95,14 @@ class TestUpdateEmployee(unittest.TestCase):
 
 
 class TestRemoveEmployee(unittest.TestCase):
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
+
     def test_fields(self):
         newEmployee = Employee("Test", "Case", date.today(), 1123, "WA", 0)
         csvFile = open("employees.csv", "w")

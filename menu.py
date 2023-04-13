@@ -33,7 +33,9 @@ def add_employee():
 
 def remove_employee():
     id = acceptInt("Enter the employee id that you want to remove: ", low = 0, high = 8_000_000_000)
+    EMPLOYEES = readEmployeesFile()
     employees = EMPLOYEES.copy()
+
     for employee in employees:
         if employees[employee]['empId'] == str(id):
             employee_object = Employee.fromDict(employees[employee])
