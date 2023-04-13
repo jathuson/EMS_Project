@@ -16,17 +16,16 @@ class TestRemoveEmployee(unittest.TestCase):
     def test_remove_employee(self, mocked_print):
         # Prepare the test data
         test_id = '100'
-        employees = readEmployeesFile()
 
         with patch("builtins.input", return_value=test_id), patch("builtins.print") as mocked_print:
             # Call remove_employee() with the mocks
             remove_employee()
 
             # Verify the employee is removed
-            self.assertNotIn("100", employees)
+            self.assertNotIn("100", readEmployeesFile())
 
             # Verify the success message is printed
-            mocked_print.assert_called_once_with("Employee removed successfully!")
+            mocked_print.assert_called_with("Employee removed successfully!")
 
 
 # class TestListEmployees(unittest.TestCase):

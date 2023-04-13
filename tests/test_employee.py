@@ -5,8 +5,8 @@ from employee import Employee
 
 class TestEmployeeClass(unittest.TestCase):
     def test_dict_to_employee(self):
-        employee = Employee.fromDict({"firstname": "John",
-                                      "lastname": "Doe",
+        employee = Employee.fromDict({"firstName": "John",
+                                      "lastName": "Doe",
                                       "startDate": "2020-01-01",
                                       "salary": 100000,
                                       "department": "IT",

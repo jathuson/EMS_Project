@@ -50,7 +50,6 @@ def updateEmployee(employee):
         reader = csv.DictReader(file, fieldnames=fieldnames)
         employee = employee.toDict()
         for row in reader:
-            print(row)
             if row['empId'] == str(employee['empId']):
             
                 row['firstName'] = employee['firstName']
@@ -61,8 +60,6 @@ def updateEmployee(employee):
                 row['empId'] =  employee['empId']
                 
             row = {'firstName': row['firstName'], 'lastName': row['lastName'], 'startDate': row['startDate'], 'salary': row['salary'], 'department': row['department'], 'empId': row['empId']}
-            print("SLKDJNFSKDJFN")
-            print(row)
             writer.writerow(row)
     shutil.move(tempFile.name, "employees.csv")
 
@@ -81,7 +78,6 @@ def removeEmployee(employee):
         reader = csv.DictReader(file, fieldnames=fieldnames)
         employee = employee.toDict()
         for row in reader:
-            print(row)
             if row['empId'] != str(employee['empId']):
 
                 row = {'firstName': row['firstName'], 'lastName': row['lastName'], 'startDate': row['startDate'],
