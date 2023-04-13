@@ -7,7 +7,7 @@ class Employee:
         self._startDate: datetime.date = startDate
         self._salary: int = salary
         self._department = department
-        self._empId: int = prevID+1
+        self._empId: int = int(prevID)+1
 
     @staticmethod
     def fromDict(inpDict: dict):

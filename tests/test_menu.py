@@ -1,16 +1,52 @@
 import unittest
 from unittest.mock import patch, MagicMock
+import csv
 
-from menu import remove_employee, list_employees
+from menu import remove_employee, list_employees, DEPARTMENTS, add_employee
 from employeeIO import readEmployeesFile, writeNewEmployee
 from employee import Employee
+
+
+class TestAddEmployee(unittest.TestCase):
+    def setUp(self):
+        # Create a new employee
+        self.newEmployee = Employee(
+            "John", "Doe", "2020/12/24", 100000, "IL", 500)
+        writeNewEmployee(self.newEmployee)
+
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
+
+    @patch('builtins.input', create=True)
+    # @patch('builtins.print', create=True)
+    def test_add_employee(self, mocked_input):
+        mocked_input.side_effect = ['John Doe', "2023 01 01", '50005', 'HR']
+
+        # Call add_employee() with the mocks
+        add_employee()
+
+        self.assertIn('501', readEmployeesFile())
+
 
 class TestRemoveEmployee(unittest.TestCase):
     def setUp(self):
         # Create a new employee
-        self.newEmployee = Employee("Test", "Case", "2020/12/24", 100000, "IL", 99)
+        self.newEmployee = Employee(
+            "Test", "Case", "2020/12/24", 100000, "IL", 99)
         writeNewEmployee(self.newEmployee)
 
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
 
     @patch("builtins.print")
     def test_remove_employee(self, mocked_print):
@@ -35,6 +71,14 @@ class TestListEmployees(unittest.TestCase):
             "Test", "Case", "2020/12/24", 100000, "IL", 99)
         writeNewEmployee(self.newEmployee)
 
+    # delete everything after the first line in employees.csv after each test to ensure that the test is independent
+    def tearDown(self):
+        with open("employees.csv", "w") as csvFile:
+            fieldnames = ['firstName', 'lastName',
+                          'startDate', 'salary', 'department', 'empId']
+            write = csv.DictWriter(csvFile, fieldnames=fieldnames)
+            write.writeheader()
+
     def test_list_employees_valid_id(self):
         # Prepare the test data
         test_id = "100"
@@ -50,7 +94,8 @@ class TestListEmployees(unittest.TestCase):
             mocked_print.assert_any_call(f"ID: {employee['empId']}")
             mocked_print.assert_any_call(
                 f"Name: {employee['firstName']} {employee['lastName']}")
-            mocked_print.assert_any_call(f"Department: {employee['department']}")
+            mocked_print.assert_any_call(
+                f"Department: {employee['department']}")
             mocked_print.assert_any_call(
                 f"Date of Employment: {employee['startDate']}")
             mocked_print.assert_any_call(f"Salary: {employee['salary']}")
