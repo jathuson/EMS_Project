@@ -15,7 +15,7 @@ def add_employee():
     salary = acceptInt("Please Enter the employee's salary: ", low=0, high=1_000_000_000)    
     
     try:
-        lastEMP = EMPLOYEES.copy.popitem()
+        lastEMP = EMPLOYEES.copy().popitem()
         emp_id =int(lastEMP[1]['empId'])
     except:
        
