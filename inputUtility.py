@@ -47,7 +47,7 @@ def getName() -> tuple:
 def acceptStr(inpStr: str, memb: set) -> str:
     while True:
         try:
-            inp: str = input(inpStr + "\n").lower().strip()
+            inp: str = input(inpStr + "\n").lower().strip().capitalize()
             if inp not in memb:
                 raise InvalidOption
             break
